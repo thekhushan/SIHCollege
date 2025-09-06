@@ -17,14 +17,23 @@
 </head>
 <body>
   <div id="container">
+    <!-- Left Sidebar for Routes -->
     <div id="sidebar">
       <h2>🚌 AMTS Routes</h2>
       <div id="routes"></div>
     </div>
+
+    <!-- Map -->
     <div id="map"></div>
+
+    <!-- Right Sidebar for Seat Booking -->
+    <div id="seat-sidebar" class="hidden">
+      <h3>Seat Booking</h3>
+      <div id="seats"></div>
+      <button id="confirm-booking">Confirm Booking</button>
+    </div>
   </div>
 
-  <!-- Order matters! -->
   <script src="routes.js"></script>
   <script src="script.js"></script>
 </body>
