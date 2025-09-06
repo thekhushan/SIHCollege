@@ -1,41 +1,153 @@
-body {
+/* --- RESET & BASE --- */
+* {
   margin: 0;
-  font-family: Arial, sans-serif;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+body {
   height: 100vh;
+  width: 100vw;
+  background: #f5f5f5;
   overflow: hidden;
 }
 
-#container {
-  display: flex;
-  height: 100vh;
-  width: 100vw;
+/* --- AUTH CONTAINER --- */
+#auth-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  text-align: center;
+  width: 320px;
+  z-index: 1000;
 }
 
+#auth-container h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+#auth-container input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+#auth-container input:focus {
+  border-color: #007bff;
+}
+
+#auth-container button {
+  width: 48%;
+  padding: 10px;
+  margin: 8px 1%;
+  border: none;
+  border-radius: 6px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#auth-container button:hover {
+  background-color: #0056b3;
+}
+
+#auth-message {
+  margin-top: 10px;
+  color: red;
+  font-size: 14px;
+}
+
+/* --- APP CONTAINER --- */
+.hidden {
+  display: none;
+}
+
+#app-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#logout-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  padding: 8px 14px;
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  z-index: 1000;
+  transition: background 0.3s ease;
+}
+
+#logout-btn:hover {
+  background: #a71d2a;
+}
+
+/* --- MAIN CONTAINER --- */
+#container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+/* --- SIDEBAR --- */
 #sidebar {
   width: 300px;
-  background: #fff;
+  background: white;
+  padding: 20px;
   overflow-y: auto;
-  padding: 10px;
-  border-right: 1px solid #ccc;
+  border-right: 1px solid #ddd;
+}
+
+#sidebar h2 {
+  margin-bottom: 15px;
+  color: #007bff;
+  font-size: 20px;
 }
 
 .route {
-  padding: 10px;
-  border-bottom: 1px solid #eee;
+  background: #f9f9f9;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .route.active {
-  background-color: #f0f0f0;
+  background: #007bff;
+  color: white;
+}
+
+.route-title {
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
 .stops {
-  display: none;
-  margin-top: 5px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
 }
 
 .stops.open {
-  display: block;
+  max-height: 200px; /* enough to show stops */
 }
 
 .stop {
@@ -43,47 +155,85 @@ body {
   margin-left: 10px;
 }
 
+/* --- MAP --- */
 #map {
   flex: 1;
+  height: 100%;
 }
 
-/* Seat Layout */
-#seat-layout {
-  margin-top: 20px;
-  padding: 10px;
-  border-top: 1px solid #ccc;
+/* --- SEAT SIDEBAR --- */
+#seat-sidebar {
+  width: 240px;
+  background: white;
+  padding: 20px;
+  border-left: 1px solid #ddd;
+  overflow-y: auto;
+}
+
+#seat-sidebar h3 {
+  margin-bottom: 10px;
+  color: #333;
 }
 
 #seats {
   display: grid;
-  grid-template-columns: repeat(4, 40px);
-  gap: 10px;
-  margin-bottom: 10px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-bottom: 15px;
 }
 
 .seat {
   width: 40px;
   height: 40px;
-  background-color: #eee;
-  border: 1px solid #999;
+  background: #e0e0e0;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  border-radius: 5px;
+  transition: all 0.2s ease;
+  user-select: none;
 }
 
 .seat.selected {
-  background-color: #4caf50;
+  background: #007bff;
   color: white;
 }
 
 .seat.booked {
-  background-color: #f44336;
+  background: #6c757d;
+  color: white;
   cursor: not-allowed;
 }
 
-.hidden {
-  display: none;
+#confirm-booking {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  background: #28a745;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
- 
+
+#confirm-booking:hover {
+  background: #1e7e34;
+}
+
+/* --- SCROLLBAR STYLING --- */
+#sidebar::-webkit-scrollbar,
+#seat-sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+#sidebar::-webkit-scrollbar-thumb,
+#seat-sidebar::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
+}
+
+#sidebar::-webkit-scrollbar-track,
+#seat-sidebar::-webkit-scrollbar-track {
+  background: #f0f0f0;
+}

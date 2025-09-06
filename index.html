@@ -5,32 +5,58 @@
   <title>AMTS Bus Tracking</title>
   <link rel="stylesheet" href="style.css">
 
-  <!-- Leaflet CSS -->
+  <!-- Leaflet -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-
-  <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
-  <!-- Leaflet Routing Machine -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
   <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-  <div id="container">
-    <!-- Left Sidebar for Routes -->
-    <div id="sidebar">
-      <h2>🚌 AMTS Routes</h2>
-      <div id="routes"></div>
-    </div>
 
-    <!-- Map -->
-    <div id="map"></div>
+  <!-- Login / Signup -->
+  <div id="auth-container">
+    <h2 id="auth-title">Log In</h2>
 
-    <!-- Right Sidebar for Seat Booking -->
-    <div id="seat-sidebar" class="hidden">
-      <h3>Seat Booking</h3>
-      <div id="seats"></div>
-      <button id="confirm-booking">Confirm Booking</button>
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <input type="password" id="confirm-password" placeholder="Confirm Password" class="hidden">
+
+    <button id="login-btn">Log In</button>
+    <button id="signup-btn" class="hidden">Sign Up</button>
+
+    <p id="toggle-text">
+      Don't have an account? <span id="toggle-link" style="color:#007bff; cursor:pointer;">Sign Up</span>
+    </p>
+
+    <p id="auth-message"></p>
+  </div>
+
+  <!-- Main App -->
+  <div id="app-container" class="hidden">
+    <button id="logout-btn">Log Out</button>
+    <div id="container">
+      <div id="sidebar">
+        <h2>🚌 AMTS Routes</h2>
+
+        <!-- Start / End Input -->
+        <div id="route-check">
+          <input type="text" id="start-location" placeholder="Start Stop">
+          <input type="text" id="end-location" placeholder="End Stop">
+          <button id="check-route-btn">Check Route</button>
+          <p id="route-message"></p>
+        </div>
+
+        <div id="routes"></div>
+      </div>
+      <div id="map"></div>
+      <div id="seat-sidebar" class="hidden">
+        <h3>Seat Booking</h3>
+        <div id="seats"></div>
+        <button id="confirm-booking">Confirm Booking</button>
+      </div>
     </div>
   </div>
 
